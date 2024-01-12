@@ -61,7 +61,7 @@ export function MovieStatusCard(props: { movieID: number }) {
 
                     dispatch(set(tempUserProfile))
                     setLoading(false)
-                }, (error) => {
+                }, () => {
                     setLoading(false)
                 }
             )
@@ -94,7 +94,7 @@ export function MovieStatusCard(props: { movieID: number }) {
                     setCurMovieStatus(null)
                     dispatch(set(tempUser))
                     console.log(result)
-                }, (error) => {
+                }, () => {
 
                 }
             )
