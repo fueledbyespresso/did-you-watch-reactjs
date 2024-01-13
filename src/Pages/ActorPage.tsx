@@ -7,7 +7,7 @@ export function ActorPage() {
     const [showAllCredits, setShowAllCredits] = useState<boolean>(false)
 
     function getShowByID() {
-        fetch(process.env.REACT_APP_HOST + "/api/v1/actor/" + id, {
+        fetch(import.meta.env.VITE_HOST + "/api/v1/actor/" + id, {
             method: "GET",
         })
             .then((res) => {

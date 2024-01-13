@@ -15,7 +15,7 @@ const Signup = () => {
         e.preventDefault()
         const auth = getAuth();
 
-        fetch(process.env.REACT_APP_HOST + "/account/v1/signup" , {
+        fetch(process.env.VITE_HOST + "/account/v1/signup" , {
             method: "POST",
             body: JSON.stringify({"email": email, "password":password, "username": username, "displayname": displayName})
         })

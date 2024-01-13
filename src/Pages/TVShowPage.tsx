@@ -17,7 +17,7 @@ export function TVShowPage() {
 
     function getShowByID() {
         setDisplayAllCast(false)
-        fetch("https://api.themoviedb.org/3/tv/" + id +"?api_key=" + process.env.REACT_APP_TMDB_KEY + "&append_to_response=aggregate_credits", {
+        fetch("https://api.themoviedb.org/3/tv/" + id +"?api_key=" + import.meta.env.VITE_TMDB_KEY + "&append_to_response=aggregate_credits", {
             method: "GET",
         })
             .then((res) => {
@@ -37,7 +37,6 @@ export function TVShowPage() {
                         mapOfSeasons.set(curSeason.season_number, tempSeason)
                     })
 
-                    console.log(mapOfSeasons)
                     setSelectedSeasons(mapOfSeasons)
                     setShow(result)
                 }, () => {
@@ -47,7 +46,7 @@ export function TVShowPage() {
     }
 
     function getSeasonByID(seasonID: any) {
-        fetch("https://api.themoviedb.org/3/tv/" + id + "/season/" + seasonID + "?api_key=" + process.env.REACT_APP_TMDB_KEY, {
+        fetch("https://api.themoviedb.org/3/tv/" + id + "/season/" + seasonID + "?api_key=" + import.meta.env.VITE_TMDB_KEY, {
             method: "GET",
         })
             .then((res) => {
@@ -63,7 +62,6 @@ export function TVShowPage() {
                         name:result.name,
                         episodes: result.episodes
                     })
-                    console.log(mapOfSeasons)
                     setSelectedSeasons(mapOfSeasons)
                     setSelectedSeason(seasonID)
                 }, () => {
@@ -73,7 +71,6 @@ export function TVShowPage() {
     }
 
     function selectSeason(seasonID: any){
-        console.log(seasonID)
         if(seasons.get(seasonID)?.loading ){
             getSeasonByID(seasonID)
         }else{

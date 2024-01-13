@@ -32,7 +32,7 @@ export function MovieStatusCard(props: { movieID: number }) {
             return
         }
         setLoading(true)
-        fetch(process.env.REACT_APP_HOST + "/api/v1/movie/" + id + "/" + status, {
+        fetch(process.env.VITE_HOST + "/api/v1/movie/" + id + "/" + status, {
             method: "PUT",
             headers: {
                 'AuthToken': user.profile.idToken
@@ -71,7 +71,7 @@ export function MovieStatusCard(props: { movieID: number }) {
         if (user.profile == null){
             return
         }
-        fetch(process.env.REACT_APP_HOST + "/api/v1/movie/" + id, {
+        fetch(process.env.VITE_HOST + "/api/v1/movie/" + id, {
             method: "DELETE",
             headers: {
                 'AuthToken': user.profile.idToken

@@ -14,7 +14,7 @@ export function UserPage() {
     }, [id])
 
     function getUser() {
-        fetch(import.meta.env.VITE__APP_HOST + "/api/v1/user/" + id, {
+        fetch(import.meta.env.VITE_HOST + "/api/v1/user/" + id, {
             method: "GET",
         })
             .then((res) => {
