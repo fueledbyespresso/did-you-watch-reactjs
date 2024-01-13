@@ -24,7 +24,7 @@ export function Search() {
         }
         let endpoint ="https://api.themoviedb.org/3/search/"+searchCategory+"?api_key=" + import.meta.env.DB_PASSWORD + "&query=" + searchQuery + "&page=1"
         if (searchCategory === "users"){
-            endpoint = process.env.VITE_HOST + "/api/v1/search/users/"+searchQuery
+            endpoint = import.meta.env.VITE_HOST + "/api/v1/search/users/"+searchQuery
         }
         fetch(endpoint, {
             method: "GET",

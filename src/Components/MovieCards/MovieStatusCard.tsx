@@ -32,7 +32,7 @@ export function MovieStatusCard(props: { movieID: number }) {
             return
         }
         setLoading(true)
-        fetch(process.env.VITE_HOST + "/api/v1/movie/" + id + "/" + status, {
+        fetch(import.meta.env.VITE_HOST + "/api/v1/movie/" + id + "/" + status, {
             method: "PUT",
             headers: {
                 'AuthToken': user.profile.idToken
@@ -68,10 +68,10 @@ export function MovieStatusCard(props: { movieID: number }) {
     }
 
     function deleteFromWatchlist(id: number) {
-        if (user.profile == null){
+        if (user.profile === null){
             return
         }
-        fetch(process.env.VITE_HOST + "/api/v1/movie/" + id, {
+        fetch(import.meta.env.VITE_HOST + "/api/v1/movie/" + id, {
             method: "DELETE",
             headers: {
                 'AuthToken': user.profile.idToken
@@ -100,7 +100,7 @@ export function MovieStatusCard(props: { movieID: number }) {
             )
     }
 
-    if (user === null) {
+    if (user.profile === null) {
         return <></>
     }
     return (

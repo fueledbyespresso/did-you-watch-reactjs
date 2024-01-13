@@ -31,11 +31,11 @@ export function ShowStatusButtons(props: { showID: number }) {
 
 
     function addShowToWatchlist(id: number, status: string) {
-        if (user.profile == null){
+        if (user.profile === null){
             return
         }
         setLoading(true)
-        fetch(process.env.VITE_HOST + "/api/v1/tv/" + id + "/" + status, {
+        fetch(import.meta.env.VITE_HOST + "/api/v1/tv/" + id + "/" + status, {
             method: "PUT",
             headers: {
                 'AuthToken': user.profile.idToken
@@ -71,7 +71,7 @@ export function ShowStatusButtons(props: { showID: number }) {
         if (user.profile == null){
             return
         }
-        fetch(process.env.VITE_HOST + "/api/v1/tv/" + id, {
+        fetch(import.meta.env.VITE_HOST + "/api/v1/tv/" + id, {
             method: "DELETE",
             headers: {
                 'AuthToken': user.profile.idToken
@@ -101,7 +101,7 @@ export function ShowStatusButtons(props: { showID: number }) {
             )
     }
 
-    if (user === null) {
+    if (user.profile === null) {
         return <></>
     }
     return (
