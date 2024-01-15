@@ -46,75 +46,67 @@ const Signup = () => {
     }
 
     return (
-        <section>
-            <div>
-                <div>
-                    <form>
-                        <div>
-                            <label htmlFor="email-address">
-                                Email address
-                            </label>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                placeholder="Email address"
-                            />
-                        </div>
+        <section className={"login-section"}>
+            <div className={"login-container"}>
+                <form>
+                    <label htmlFor="email-address">
+                        Email address
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            placeholder="Email address"
+                        />
+                    </label>
 
-                        <div>
-                            <label htmlFor="password">
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                placeholder="Password"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="username">
-                                username
-                            </label>
-                            <input
-                                type="username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                                placeholder="username"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="displayname">
-                                displayname
-                            </label>
-                            <input
-                                type="displayname"
-                                value={displayName}
-                                onChange={(e) => setDisplayName(e.target.value)}
-                                required
-                                placeholder="Display name"
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            onClick={onSubmit}
-                        >
-                            Sign up
-                        </button>
+                    <label htmlFor="password">
+                        Password
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            placeholder="Password"
+                        />
+                    </label>
+                    <label htmlFor="username">
+                        Username
+                        <input
+                            type="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            placeholder="username"
+                        />
+                    </label>
 
-                    </form>
+                    <label htmlFor="displayname">
+                        Display name
+                        <input
+                            type="displayname"
+                            value={displayName}
+                            onChange={(e) => setDisplayName(e.target.value)}
+                            required
+                            placeholder="Display name"
+                        />
+                    </label>
+                    <button
+                        type="submit"
+                        className={"blue-btn"}
+                        onClick={onSubmit}
+                    >
+                        Sign up
+                    </button>
 
-                    <p>
-                        Already have an account?{' '}
-                        <NavLink to="/login">
-                            <u>Sign in</u>
-                        </NavLink>
-                    </p>
-                </div>
+                </form>
+
+                <p>
+                    Skip signing up using {' '}
+                    <NavLink to="/login">
+                        <u>Google Login</u>
+                    </NavLink>
+                </p>
             </div>
         </section>
     )
