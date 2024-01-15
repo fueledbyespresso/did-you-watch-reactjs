@@ -77,7 +77,7 @@ const Signup = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
-                            placeholder="username"
+                            placeholder="Username"
                         />
                     </label>
 
