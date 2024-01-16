@@ -880,10 +880,10 @@ a {
     align-content: center;
     justify-content: center;
     margin-top:3em;
-    padding: 1em;
     .login-container{
+        width: 100%;
+        max-width: 25em;
         padding: 1em;
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1), 0 6px 6px 0 rgba(0, 0, 0, 0.14);
         border-radius: .5em;
 
         form{
