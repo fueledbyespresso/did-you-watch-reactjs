@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {getAuth, signInWithCustomToken} from 'firebase/auth';
+import GoogleLogin from "./GoogleLogin.tsx";
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -100,7 +101,8 @@ const Signup = () => {
                     </button>
 
                 </form>
-
+                <div className={"separator"}></div>
+                <GoogleLogin/>
                 <p>
                     Skip signing up using {' '}
                     <NavLink to="/login">
