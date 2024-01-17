@@ -22,7 +22,7 @@ export function Search() {
             setSearchResults(null)
             return
         }
-        let endpoint ="https://api.themoviedb.org/3/search/"+searchCategory+"?api_key=" + import.meta.env.DB_PASSWORD + "&query=" + searchQuery + "&page=1"
+        let endpoint ="https://api.themoviedb.org/3/search/"+searchCategory+"?api_key=" + import.meta.env.VITE_TMDB_KEY + "&query=" + searchQuery + "&page=1"
         if (searchCategory === "users"){
             endpoint = import.meta.env.VITE_HOST + "/api/v1/search/users/"+searchQuery
         }

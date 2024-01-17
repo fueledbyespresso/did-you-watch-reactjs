@@ -193,18 +193,21 @@ a {
             display: flex;
             flex-flow: column nowrap;
             align-items: center;
+            width: inherit;
         }
 
         .results {
             position: absolute;
             max-width: 45em;
             max-height: 50em;
-            width: 100%;
+            width: inherit;
             display: none;
             overflow: scroll;
             background: #fff;
             border: solid 1px #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
+            padding-right: .5em ;
 
             .film {
                 width: 100%;
@@ -253,6 +256,8 @@ a {
             .search-input {
                 display: inline-block;
                 flex: 2 1;
+                border: 1px solid #b3b3b3;
+                border-left: none;
                 width: 5em;
             }
 
@@ -270,6 +275,7 @@ a {
     align-self: start;
 
     img {
+        height: 6em;
         height: 6em;
     }
 
@@ -574,23 +580,24 @@ a {
     }
 }
 .home {
+    padding: 0 1em 5em;
+    max-width: 100em;
+    margin:auto;
     h1 {
-        text-align: center;
     }
 }
 
 .trending-films {
     width: 100%;
-    padding: 0 1em 5em;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: stretch;
-    margin: auto;
     gap: .5em;
 
     .trending-film-container {
-        flex: 1 2 20em;
+        flex: 1 2 15em;
+        max-width: 18em;
         border-radius: .5em;
 
         .trending-film {
@@ -605,7 +612,6 @@ a {
             img {
                 width: 100%;
                 object-fit: cover;
-                border-radius: .5em;
             }
         }
 
