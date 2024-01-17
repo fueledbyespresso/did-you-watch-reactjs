@@ -251,8 +251,9 @@ export function Account() {
                         <button onClick={() => setEditUsernameMode(false)}>Cancel Edit</button>
                     </div>
                 }
-                <button
-                    onClick={() => toggleDarkMode()}>{user.profile.darkMode ? "Enable Light Mode" : "Enable Dark Mode"}</button>
+                <button className={"dark-mode-toggle"}
+                    onClick={() => toggleDarkMode()}>{user.profile.darkMode ? "Enable Light Mode" : "Enable Dark Mode"}
+                </button>
                 <div>
                     {error}
                 </div>
