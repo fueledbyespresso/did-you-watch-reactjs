@@ -64,10 +64,8 @@ export function Search() {
                        placeholder={"The Last of Us..."}
                        autoFocus={true}/>
             </div>
-
-            <div className="results">
-                {searchResults !== null && searchResults.map((searchResult: any) => {
-                    console.log(searchResult)
+            {searchResults !== null && <div className="results">
+                {searchResults.map((searchResult: any) => {
                     const media = searchResult.media_type || curCategory
                     switch (media) {
                         case "tv":
@@ -81,7 +79,7 @@ export function Search() {
                         default: return <div></div>
                     }
                 })}
-            </div>
+            </div>}
         </div>
     )
 }
