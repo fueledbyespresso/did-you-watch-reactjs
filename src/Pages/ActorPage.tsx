@@ -7,7 +7,7 @@ export function ActorPage() {
     const [showAllCredits, setShowAllCredits] = useState<boolean>(false)
 
     function getShowByID() {
-        fetch(import.meta.env.VITE_HOST + "/api/v1/actor/" + id, {
+        fetch("https://api.themoviedb.org/3/person/" + id + "?append_to_response=combined_credits&api_key="+import.meta.env.VITE_TMDB_KEY, {
             method: "GET",
         })
             .then((res) => {
