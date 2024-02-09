@@ -4,7 +4,7 @@ import {MovieStatusCard} from "../Components/MovieCards/MovieStatusCard";
 
 export function MoviePage() {
     const {id} = useParams();
-    const [show, setShow] = useState<any>(null)
+    const [movie, setMovie] = useState<any>(null)
     const [displayAllCast, setDisplayAllCast] = useState<boolean>(false)
 
     function getShowByID() {
@@ -19,7 +19,7 @@ export function MoviePage() {
             })
             .then(
                 (result) => {
-                    setShow(result)
+                    setMovie(result)
                 }, () => {
 
                 }
@@ -30,7 +30,7 @@ export function MoviePage() {
         getShowByID()
     }, [id])
 
-    if (show === null) {
+    if (movie === null) {
         return <div>Loading...</div>
     }
 
@@ -39,20 +39,20 @@ export function MoviePage() {
             <div className={"full-show-details"}>
                 <div className={"show-details"}
                      style={{
-                         background: `linear-gradient( rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.65) ),url("https://image.tmdb.org/t/p/original/` + show.backdrop_path + `") no-repeat center bottom fixed`,
+                         background: `linear-gradient( rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.65) ),url("https://image.tmdb.org/t/p/original/` + movie.backdrop_path + `") no-repeat center bottom fixed`,
                          backgroundSize: "cover"
                      }}>
 
-                    <img src={show.poster_path !== null ?
-                        "https://image.tmdb.org/t/p/w500/" + show.poster_path :
+                    <img src={movie.poster_path !== null ?
+                        "https://image.tmdb.org/t/p/w500/" + movie.poster_path :
                         "https://did-you-watch-avatars.s3.us-west-2.amazonaws.com/placeholder.jpg"}
                          className={"poster"}
                          alt={"show-poster"}/>
                     <div className={"text-details"}>
-                        <h2>{show.original_title}</h2>
-                        <div>{show.release_date}</div>
-                        <div className={"overview"}>{show.overview}</div>
-                        <MovieStatusCard movieID={show.id}/>
+                        <h2>{movie.original_title}</h2>
+                        <div>{movie.release_date}</div>
+                        <div className={"overview"}>{movie.overview}</div>
+                        <MovieStatusCard movieID={movie.id}/>
 
                     </div>
                 </div>
@@ -65,7 +65,7 @@ export function MoviePage() {
                 </h2>
 
                 <div className={"credits"}>
-                    {show.credits.cast.map((cast: any, i: number) => {
+                    {movie.credits && movie.credits.cast.map((cast: any, i: number) => {
                         if (!displayAllCast && i > 17) {
                             return null
                         }

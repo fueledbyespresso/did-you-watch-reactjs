@@ -6,6 +6,7 @@ export type Show = {
     overview: string,
     original_name: string,
     first_air_date: string,
-    total_episodes: number,
-    episodes_watched: number
+    last_episode_season: number,
+    last_episode_number: number,
+    last_episode_title: string
 }

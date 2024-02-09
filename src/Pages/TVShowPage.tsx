@@ -1,6 +1,8 @@
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {ShowStatusButtons} from "../Components/ShowCards/ShowStatusButtons";
+import {RootState, UserState} from "../Store/userSlice.ts";
+import {useSelector} from "react-redux";
 
 export function TVShowPage() {
     type season = {
@@ -13,7 +15,10 @@ export function TVShowPage() {
     const [selectedSeason, setSelectedSeason] = useState<any>(null)
     const [seasons, setSelectedSeasons] = useState<Map<number, season>>(new Map<number, season>())
 
+    const [episodesWatched, setEpisodesWatched] = useState<number[]>([])
+
     const [displayAllCast, setDisplayAllCast] = useState<boolean>(false)
+    const user = useSelector<RootState, UserState>((state) => state.user);
 
     function getShowByID() {
         setDisplayAllCast(false)
@@ -29,12 +34,14 @@ export function TVShowPage() {
                 (result) => {
                     const mapOfSeasons = new Map<number, season>();
                     result.seasons.forEach((curSeason:any) => {
-                        const tempSeason: season = {
-                            loading: true,
-                            name: curSeason.name,
-                            episodes: null
+                        if(curSeason.air_date !== null && curSeason.poster_path !== null){
+                            const tempSeason: season = {
+                                loading: true,
+                                name: curSeason.name,
+                                episodes: null,
+                            }
+                            mapOfSeasons.set(curSeason.season_number, tempSeason)
                         }
-                        mapOfSeasons.set(curSeason.season_number, tempSeason)
                     })
 
                     setSelectedSeasons(mapOfSeasons)
@@ -60,10 +67,34 @@ export function TVShowPage() {
                     mapOfSeasons.set(seasonID, {
                         loading: false,
                         name:result.name,
-                        episodes: result.episodes
+                        episodes: result.episodes,
                     })
                     setSelectedSeasons(mapOfSeasons)
                     setSelectedSeason(seasonID)
+                }, () => {
+
+                }
+            )
+    }
+    function getEpisodesWatched(seasonID: any) {
+        if (user.profile === null){
+            return
+        }
+        fetch(import.meta.env.VITE_HOST+"/api/v1/tv/"+id+"/season/"+seasonID, {
+            method: "GET",
+            headers: {
+                'AuthToken': user.profile.idToken
+            }
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json()
+                }
+            })
+            .then(
+                (result) => {
+                    console.log(result)
+                    setEpisodesWatched(result)
                 }, () => {
 
                 }
@@ -76,6 +107,8 @@ export function TVShowPage() {
         }else{
             setSelectedSeason(seasonID)
         }
+        setEpisodesWatched([])
+        getEpisodesWatched(seasonID)
     }
 
     useEffect(() => {
@@ -86,6 +119,60 @@ export function TVShowPage() {
         return <div>Loading...</div>
     }
 
+    function markWatched(season_number: number, episode_number: number) {
+        if (user.profile == null){
+            return
+        }
+        fetch(import.meta.env.VITE_HOST + "/api/v1/tv/" + id + "/season/" + season_number + "/episode/"+episode_number, {
+            method: "PUT",
+            headers: {
+                'AuthToken': user.profile.idToken
+            }
+        }).then((res) => {
+                if (res.ok) {
+                    return res.json()
+                }
+            })
+            .then(
+                () => {
+                    setEpisodesWatched(episodesWatched => [...episodesWatched, episode_number])
+                    console.log("WHOO HOO")
+                }, () => {
+                }
+            )
+    }
+    function markUnwatched(season_number: number, episode_number: number) {
+        if (user.profile == null){
+            return
+        }
+        fetch(import.meta.env.VITE_HOST + "/api/v1/tv/" + id + "/season/" + season_number + "/episode/"+episode_number, {
+            method: "DELETE",
+            headers: {
+                'AuthToken': user.profile.idToken
+            }
+        }).then((res) => {
+            if (res.ok) {
+                return res.json()
+            }
+        })
+            .then(
+                () => {
+                    const index = episodesWatched.indexOf(episode_number)
+                    console.log(index)
+                    if( index !== -1){
+                        const eps = [...episodesWatched]
+                        eps.splice(index, 1)
+
+                        setEpisodesWatched(eps)
+                    }
+                    console.log("BOO HOO")
+                }, () => {
+                }
+            )
+    }
+    const matchingShow = user.profile?.tvList.find(curShow => {
+        return curShow.id === Number(id)
+    })
     return (
         <div>
             <div className={"full-show-details"}>
@@ -103,6 +190,11 @@ export function TVShowPage() {
                     <div className={"text-details"}>
                         <h2>{show.original_name}</h2>
                         <div>{show.first_air_date}</div>
+                        {matchingShow !== undefined && matchingShow?.last_episode_title !== "" &&
+                            <div><b>Last Episode Watched: </b>
+                                S{matchingShow?.last_episode_season}E{matchingShow?.last_episode_number} {matchingShow?.last_episode_title}
+                            </div>
+                        }
                         <div className={"overview"}>{show.overview}</div>
                         <ShowStatusButtons showID={show.id}/>
                     </div>
@@ -149,15 +241,19 @@ export function TVShowPage() {
                 <h2>Seasons</h2>
                 <div className={"seasons"}>
                     {show.seasons.map((season: any) => {
-                        return (
-                            <div className={"season"}
-                                 key={season.name}
-                                 onClick={()=>selectSeason(season.season_number)}>
-                                <img src={"https://image.tmdb.org/t/p/w500/" + season.poster_path} className={"poster"}
-                                     alt={"show-poster"}/>
-                                <div>{season.name}</div>
-                            </div>
-                        )
+                        if(season.poster_path === null && season.air_date === null){
+                            return <div></div>
+                        }else{
+                            return (
+                                <div className={"season"}
+                                     key={season.name}
+                                     onClick={()=>selectSeason(season.season_number)}>
+                                    <img src={"https://image.tmdb.org/t/p/w500/" + season.poster_path} className={"poster"}
+                                         alt={"show-poster"}/>
+                                    <div>{season.name}</div>
+                                </div>
+                            )
+                        }
                     })}
                 </div>
                 <div className={"season-selector"}>
@@ -179,6 +275,18 @@ export function TVShowPage() {
                                         <div className={"info"}>
                                             <b>{episode.name}</b>
                                             <div>{episode.overview}</div>
+                                            {matchingShow !== undefined && (
+                                                episodesWatched.includes(episode.episode_number) ?
+                                                        <button
+                                                            onClick={() => markUnwatched(episode.season_number, episode.episode_number)}>
+                                                            Mark Unwatched
+                                                        </button> :
+                                                        <button
+                                                            onClick={() => markWatched(episode.season_number, episode.episode_number)}>
+                                                            Mark Watched
+                                                        </button>
+
+                                            )}
                                         </div>
                                     </div>
                                 )
