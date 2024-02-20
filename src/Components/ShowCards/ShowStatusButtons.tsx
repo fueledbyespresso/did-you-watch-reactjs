@@ -15,7 +15,6 @@ export function ShowStatusButtons(props: { showID: number }) {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState<boolean>(false)
     const [showStatus, setShowStatus] = useState<string | null>(null)
-
     useEffect(() => {
         if (user.profile == null){
             return
@@ -58,7 +57,6 @@ export function ShowStatusButtons(props: { showID: number }) {
                         tempUserProfile.tvList.unshift(newlyAddedShow)
                     }
                     setLoading(false)
-
                     dispatch(set(tempUserProfile))
                 }, () => {
                     setLoading(false)
@@ -109,10 +107,11 @@ export function ShowStatusButtons(props: { showID: number }) {
             {loading && <div>"Loading..."</div>}
             {status_types.map((status) => (
                 <button className={status.value}
-                        key={status.value}
                         tabIndex={3}
                         disabled={showStatus === status.value}
-                        onClick={() => addShowToWatchlist(props.showID, status.value)}>
+                        onClick={() => {
+                            addShowToWatchlist(props.showID, status.value)
+                        }}>
                     {status.label}
                 </button>
             ))}

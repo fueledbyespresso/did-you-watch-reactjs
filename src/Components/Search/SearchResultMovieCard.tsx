@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
-import {Movie} from "../../Types/Movie";
-import {MovieStatusCard} from "./MovieStatusCard";
+import {Movie} from "../../Types/Movie.tsx";
+import {MovieStatusCard} from "../MovieCards/MovieStatusCard.tsx";
 
 export function SearchResultMovieCard(props: {
     movie: Movie,

@@ -18,6 +18,7 @@ import {UserPage} from "./Pages/UserPage";
 import {ActorPage} from "./Pages/ActorPage";
 import SignUp from "./SignUp";
 import Login from "./Login";
+import {SearchPage} from "./Pages/SearchPage.tsx";
 // TODO Add more sorting features
 // TODO Add follow other people
 // TODO Add rankings
@@ -111,6 +112,9 @@ function App() {
         },{
             path:"signup",
             element: <SignUp/>
+        },{
+            path:"search",
+            element: <SearchPage/>
         },{
             path: "my-movies",
             element: <ProtectedRoute children={<Watchlist category={"movies"}/>}/>,

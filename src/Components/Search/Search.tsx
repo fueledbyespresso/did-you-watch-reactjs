@@ -1,31 +1,20 @@
 import {useState} from "react";
-import Select from "react-select";
 import {User} from "../../Types/User";
-import {SearchResultShowCard} from "../ShowCards/SearchResultShowCard";
-import {SearchResultMovieCard} from "../MovieCards/SearchResultMovieCard";
+import {SearchResultShowCard} from "./SearchResultShowCard.tsx";
+import {SearchResultMovieCard} from "./SearchResultMovieCard.tsx";
 import {ActorResultCard} from "./ActorResultCard";
 
-const options = [
-    {value: 'multi', label: 'Multi'},
-    {value: 'tv', label: 'TV'},
-    {value: 'movie', label: 'Movie'},
-    {value: 'users', label: 'Users'},
-]
-
 export function Search() {
-    const [curCategory, setCurCategory] = useState<string | undefined>("multi")
     const [searchQuery, setSearchQuery] = useState<string>("")
     const [searchResults, setSearchResults] = useState<any>(null)
 
-    function submitSearch(searchCategory: string | null | undefined) {
+    function submitSearch() {
         if (searchQuery === ""){
             setSearchResults(null)
             return
         }
-        let endpoint ="https://api.themoviedb.org/3/search/"+searchCategory+"?api_key=" + import.meta.env.VITE_TMDB_KEY + "&query=" + searchQuery + "&page=1"
-        if (searchCategory === "users"){
-            endpoint = import.meta.env.VITE_HOST + "/api/v1/search/users/"+searchQuery
-        }
+        const endpoint ="https://api.themoviedb.org/3/search/multi?api_key=" + import.meta.env.VITE_TMDB_KEY + "&query=" + searchQuery + "&page=1"
+
         fetch(endpoint, {
             method: "GET",
         })
@@ -46,27 +35,30 @@ export function Search() {
 
     return (
         <div className={"search-area"} tabIndex={3}>
-            <div className={"search-bar"}>
-                <Select options={options}
-                        tabIndex={1}
-                        defaultValue={{value: 'multi', label: 'Multi'}}
-                        onChange={(values) => {
-                            setCurCategory(values?.value)
-                            setSearchResults(null)
-                        }}
-                        className="category-select"/>
-
+            <form className={"search-bar"} onSubmit={(e)=>e.preventDefault()}>
                 <input className={"search-input"}
                        tabIndex={2}
                        value={searchQuery}
                        onChange={event => setSearchQuery(event.target.value)}
-                       onKeyUp={() => (submitSearch(curCategory))}
-                       placeholder={"The Last of Us..."}
-                       autoFocus={true}/>
-            </div>
+                       onKeyUp={() => (submitSearch())}
+                       placeholder={"Search..."}
+                       onKeyUpCapture={(e)=>{
+                           if (e.key === "Escape"){
+                               setSearchQuery("")
+                               setSearchResults(null)
+                           }
+                       }}
+                       autoFocus={true}></input>
+                {(searchQuery !== "" || searchResults !== null) &&
+                    <input type="reset" value="X" alt="Clear the search form" onClick={() => {
+                        setSearchQuery("")
+                        setSearchResults(null)
+                    }}/>
+                }
+            </form>
             {searchResults !== null && <div className="results">
                 {searchResults.map((searchResult: any) => {
-                    const media = searchResult.media_type || curCategory
+                    const media = searchResult.media_type
                     switch (media) {
                         case "tv":
                             return <SearchResultShowCard show={searchResult} key={searchResult.id}/>

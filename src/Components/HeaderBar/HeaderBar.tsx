@@ -15,11 +15,14 @@ export function HeaderBar() {
                 <NavLink className={({isActive}) => (isActive ? 'active' : 'inactive')} to={"/"}>Trending</NavLink>
                 {user !== null &&
                     <>
-                        <NavLink className={({isActive}) => (isActive ? 'active' : 'inactive')} to={"/my-movies"}>My
+                        <NavLink className={({isActive}) => (isActive ? 'active' : 'inactive')} to={"/my-movies"}>
                             Movies
                         </NavLink>
-                        <NavLink className={({isActive}) => (isActive ? 'active' : 'inactive')} to={"/my-shows"}>My
+                        <NavLink className={({isActive}) => (isActive ? 'active' : 'inactive')} to={"/my-shows"}>
                             Shows
+                        </NavLink>
+                        <NavLink className={({isActive}) => (isActive ? 'active' : 'inactive')} to={"/search"}>
+                            Search
                         </NavLink>
                     </>
                 }

@@ -92,12 +92,14 @@ export function ActorPage() {
                                      alt={"poster"}/>
                             </Link>
 
-                            <div className={"title"}>
-                                <Link to={film.media_type === "movie" ? "/movie/" + film.id : "/show/" + film.id}>
-                                    {film.title || film.name} ({(new Date(film.release_date || film.first_air_date)).toDateString()})
-                                </Link>
+                            <div>
+                                <div className={"title"}>
+                                    <Link to={film.media_type === "movie" ? "/movie/" + film.id : "/show/" + film.id}>
+                                        {film.title || film.name} ({(new Date(film.release_date || film.first_air_date)).toDateString()})
+                                    </Link>
+                                </div>
+                                <div>As {film.character === "" ? "Unknown" : film.character}</div>
                             </div>
-                            <div>As {film.character === "" ? "Unknown" : film.character}</div>
                         </div>
                     )
                 })}

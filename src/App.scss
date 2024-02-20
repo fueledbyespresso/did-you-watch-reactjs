@@ -189,19 +189,14 @@ a {
         z-index: 2;
         font-size: .9em;
 
-        &:focus-within .results {
+        .results {
             display: flex;
             flex-flow: column nowrap;
             align-items: center;
-            width: inherit;
-        }
-
-        .results {
             position: absolute;
             max-width: 45em;
             max-height: 50em;
             width: inherit;
-            display: none;
             overflow: scroll;
             background: #fff;
             border: solid 1px #ccc;
@@ -257,8 +252,9 @@ a {
                 display: inline-block;
                 flex: 2 1;
                 border: 1px solid #b3b3b3;
-                border-left: none;
+                border-radius: .1em;
                 width: 5em;
+                padding: .5em;
             }
 
             button {
@@ -470,14 +466,6 @@ a {
     .status-buttons {
         background: #e0e0e0;
         width: 100%;
-
-        &::before {
-            display: inline-block;
-            content: "My Watchlist:";
-            color: #282828;
-            font-weight: bold;
-            margin-right: .5em;
-        }
 
         button {
             background: #fff;
@@ -878,6 +866,10 @@ a {
             overflow: hidden;
             flex: 1 2 10em;
             width: 11em;
+            max-width: 11em;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
 
             .poster {
                 width: 100%;

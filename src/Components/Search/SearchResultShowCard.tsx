@@ -1,6 +1,6 @@
-import {Show} from "../../Types/Show";
+import {Show} from "../../Types/Show.tsx";
 import {Link} from "react-router-dom";
-import {ShowStatusButtons} from "./ShowStatusButtons";
+import {ShowStatusButtons} from "../ShowCards/ShowStatusButtons.tsx";
 
 export function SearchResultShowCard(props: {
     show: Show,
