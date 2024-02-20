@@ -4,7 +4,7 @@ import {SearchResultShowCard} from "./SearchResultShowCard.tsx";
 import {SearchResultMovieCard} from "./SearchResultMovieCard.tsx";
 import {ActorResultCard} from "./ActorResultCard";
 
-export function Search() {
+export function QuickSearch() {
     const [searchQuery, setSearchQuery] = useState<string>("")
     const [searchResults, setSearchResults] = useState<any>(null)
 

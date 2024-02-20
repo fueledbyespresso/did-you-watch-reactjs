@@ -1,4 +1,4 @@
-import {Search} from "../Search/Search";
+import {QuickSearch} from "../Search/QuickSearch.tsx";
 import {AccountDropdown} from "../AccountDropdown/AccountDropdown";
 import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
@@ -10,7 +10,7 @@ export function HeaderBar() {
     return (
         <div className={"header-bar"}>
             <AccountDropdown/>
-            <Search/>
+            <QuickSearch/>
             <div className={"links"}>
                 <NavLink className={({isActive}) => (isActive ? 'active' : 'inactive')} to={"/"}>Trending</NavLink>
                 {user !== null &&
