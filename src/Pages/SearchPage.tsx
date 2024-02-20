@@ -154,7 +154,7 @@ export function TVSR(props: {
                  className={"poster"}
                  alt={"show-poster"}/>
             <div className={"text-details"}>
-                <Link to={"/movie/" + props.show.id} onClick={() => {
+                <Link to={"/show/" + props.show.id} onClick={() => {
                     if (document.activeElement instanceof HTMLElement) {
                         document.activeElement.blur();
                     }
@@ -178,7 +178,7 @@ export function ActorSR(props: {
                  className={"poster"}
                  alt={"show-poster"}/>
             <div className={"text-details"}>
-                <Link to={"/movie/" + props.actor.id} onClick={() => {
+                <Link to={"/actor/" + props.actor.id} onClick={() => {
                     if (document.activeElement instanceof HTMLElement) {
                         document.activeElement.blur();
                     }

@@ -304,10 +304,8 @@ a {
 
 .result-item-user {
     display: flex;
-    justify-content: center;
-    align-items: center;
     align-self: start;
-
+    width: 100%;
     img {
         height: 6em;
     }
