@@ -264,6 +264,44 @@ a {
     }
 }
 
+.search-page{
+    margin:auto;
+    justify-content: center;
+    align-items: center;
+    width: 50em;
+    .search-input{
+        width: 100%;
+    }
+    fieldset{
+        width: 100%;
+        border:none;
+    }
+    .moviesr-details{
+        display: flex;
+        flex-flow: row nowrap;
+        a{
+            font-weight: bold;
+        }
+        img{
+            height: 15em;
+            aspect-ratio: 1/1.5;
+            object-fit: cover;
+        }
+
+        .text-details{
+            padding:  1em;
+            .overview{
+                max-height: 10em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 8;
+            }
+        }
+    }
+}
+
 .result-item-user {
     display: flex;
     justify-content: center;

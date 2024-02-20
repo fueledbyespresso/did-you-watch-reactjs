@@ -1,17 +1,12 @@
 import {useState} from "react";
-import Select from "react-select";
 import {User} from "../Types/User.tsx";
-
-
-const options = [
-    {value: 'multi', label: 'Multi'},
-    {value: 'tv', label: 'TV'},
-    {value: 'movie', label: 'Movie'},
-    {value: 'users', label: 'Users'},
-]
+import {Link} from "react-router-dom";
+import {Movie} from "../Types/Movie.tsx";
+import {Show} from "../Types/Show.tsx";
+import {Actor} from "../Types/Actor.tsx";
 
 export function SearchPage() {
-    const [curCategory, setCurCategory] = useState<string | undefined>("multi")
+    const [curCategory, setCurCategory] = useState<string>("multi")
     const [searchQuery, setSearchQuery] = useState<string>("")
     const [searchResults, setSearchResults] = useState<any>(null)
 
@@ -50,34 +45,148 @@ export function SearchPage() {
                        value={searchQuery}
                        onChange={event => setSearchQuery(event.target.value)}
                        onKeyUp={() => (submitSearch(curCategory))}
-                       placeholder={"The Last of Us..."}
+                       placeholder={"Search..."}
                        autoFocus={true}/>
-                <Select options={options}
-                        tabIndex={1}
-                        defaultValue={{value: 'multi', label: 'Multi'}}
-                        onChange={(values) => {
-                            setCurCategory(values?.value)
-                            setSearchResults(null)
-                        }}
-                        className="category-select"/>
+                <fieldset>
+                    <label>
+                        <input type={"radio"} name={"category"}
+                               checked={curCategory === "multi"}
+                               onChange={() => {
+                                   setCurCategory("multi")
+                                   submitSearch("multi")
+                               }}/>
+                        Multi
+                    </label>
+                    <label>
+                        <input type={"radio"} name={"category"}
+                               checked={curCategory === "movie"}
+                               onChange={() => {
+                                   setCurCategory("movie")
+                                   submitSearch("movie")
+                               }}/>
+                        Movies
+                    </label>
+                    <label>
+                        <input type={"radio"} name={"category"}
+                               checked={curCategory === "tv"}
+                               onChange={() => {
+                                   setCurCategory("tv")
+                                   submitSearch("tv")
+                               }}
+                        />
+                        Shows
+                    </label>
+                    <label>
+                        <input type={"radio"} name={"category"}
+                               checked={curCategory === "person"}
+                               onChange={() => {
+                                   setCurCategory("person")
+                                   submitSearch("person")
+                               }}
+                        />
+                        People
+                    </label>
+                    <label>
+                        <input type={"radio"} name={"category"}
+                               checked={curCategory === "users"}
+                               onChange={() => {
+                                   setCurCategory("users")
+                                   submitSearch("users")
+                               }}
+                        />
+                        Users
+                    </label>
+                </fieldset>
             </div>
             {searchResults !== null && <div className="results">
                 {searchResults.map((searchResult: any) => {
                     const media = searchResult.media_type || curCategory
                     switch (media) {
                         case "tv":
-                            return <div>{searchResult.name}</div>
+                            return <TVSR show={searchResult}/>
                         case "movie":
-                            return <div>{searchResult.title}</div>
-                            case "user":
-                                return <User user={searchResult} key={searchResult.key}/>
-                            case "person":
-                                return <div>{searchResult.name}</div>
-                            default:
-                                return <div></div>
-                        }
-                    })}
-                </div>}
+                            return <MovieSR movie={searchResult}/>
+                        case "user":
+                            return <User user={searchResult} key={searchResult.key}/>
+                        case "person":
+                            return <ActorSR actor={searchResult}/>
+                        default:
+                            return <div></div>
+                    }
+                })}
+            </div>}
+        </div>
+    )
+}
+
+export function MovieSR(props: {
+    movie: Movie,
+}) {
+    return (
+        <div className={"moviesr-details"}>
+            <img src={(props.movie.poster_path === "" || props.movie.poster_path === null) ?
+                "https://did-you-watch-avatars.s3.us-west-2.amazonaws.com/placeholder.jpg" :
+                "https://image.tmdb.org/t/p/w500/" + props.movie.poster_path}
+                 className={"poster"}
+                 alt={"show-poster"}/>
+            <div className={"text-details"}>
+                <Link to={"/movie/" + props.movie.id} onClick={() => {
+                    if (document.activeElement instanceof HTMLElement) {
+                        document.activeElement.blur();
+                    }
+                }}>
+                    {props.movie.original_title}
+                </Link>
+                <div className={"overview"}>{props.movie.overview}</div>
+            </div>
+        </div>
+    )
+}
+
+export function TVSR(props: {
+    show: Show,
+}) {
+    return (
+        <div className={"moviesr-details"}>
+            <img src={(props.show.poster_path === "" || props.show.poster_path === null) ?
+                "https://did-you-watch-avatars.s3.us-west-2.amazonaws.com/placeholder.jpg" :
+                "https://image.tmdb.org/t/p/w500/" + props.show.poster_path}
+                 className={"poster"}
+                 alt={"show-poster"}/>
+            <div className={"text-details"}>
+                <Link to={"/movie/" + props.show.id} onClick={() => {
+                    if (document.activeElement instanceof HTMLElement) {
+                        document.activeElement.blur();
+                    }
+                }}>
+                    {props.show.original_name}
+                </Link>
+                <div className={"overview"}>{props.show.overview}</div>
+            </div>
+        </div>
+    )
+}
+
+export function ActorSR(props: {
+    actor: Actor,
+}) {
+    return (
+        <div className={"moviesr-details"}>
+            <img src={(props.actor.profile_path === "" || props.actor.profile_path === null) ?
+                "https://did-you-watch-avatars.s3.us-west-2.amazonaws.com/placeholder.jpg" :
+                "https://image.tmdb.org/t/p/w500/" + props.actor.profile_path}
+                 className={"poster"}
+                 alt={"show-poster"}/>
+            <div className={"text-details"}>
+                <Link to={"/movie/" + props.actor.id} onClick={() => {
+                    if (document.activeElement instanceof HTMLElement) {
+                        document.activeElement.blur();
+                    }
+                }}>
+                    {props.actor.name}
+                </Link>
+                <div className={"overview"}>Known for {props.actor.known_for_department}</div>
+            </div>
         </div>
     )
 }
