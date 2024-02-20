@@ -268,8 +268,11 @@ a {
     margin:auto;
     justify-content: center;
     align-items: center;
-    width: 50em;
+    width: 100%;
+    max-width: 50em;
+    padding: .5em;
     .search-input{
+        padding: .5em 1em;
         width: 100%;
     }
     fieldset{
@@ -319,16 +322,13 @@ a {
     .header-bar {
         align-items: center;
         justify-content: space-between;
-
-        .links {
-            width: 100%;
-        }
+        flex-flow: row wrap;
 
         .search-area {
-            margin: 0;
-            width: auto;
             flex: 1 2;
-            max-width: none;
+            min-width:100%;
+            display: block;
+            margin-bottom:.5em;
 
             .results {
                 max-width: none;
@@ -339,6 +339,7 @@ a {
             padding: 0;
             background: none;
             width: auto;
+            order:3;
 
             .login {
                 right: 0;
