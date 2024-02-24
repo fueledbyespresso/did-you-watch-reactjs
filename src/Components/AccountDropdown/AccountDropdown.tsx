@@ -6,14 +6,14 @@ export function AccountDropdown() {
     const user = useSelector<RootState, UserState>((state) => state.user);
     if (user.profile === null) {
         return (
-            <>
+            <div className={"account-dropdown"}>
                 <Link to={"/signup"} className={"signup-button"} tabIndex={4}>
                     Sign up
                 </Link>
                 <Link to={"/login"} className={"login-button"} tabIndex={4}>
                     Login
                 </Link>
-            </>
+            </div>
         )
     }
     return (

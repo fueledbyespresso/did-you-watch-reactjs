@@ -48,7 +48,7 @@ export function SearchPage() {
                        placeholder={"Search..."}
                        autoFocus={true}/>
                 <fieldset>
-                    <label>
+                    <label className={curCategory === "multi" ? "active":""}>
                         <input type={"radio"} name={"category"}
                                checked={curCategory === "multi"}
                                onChange={() => {
@@ -57,7 +57,7 @@ export function SearchPage() {
                                }}/>
                         Multi
                     </label>
-                    <label>
+                    <label className={curCategory === "movie" ? "active":""}>
                         <input type={"radio"} name={"category"}
                                checked={curCategory === "movie"}
                                onChange={() => {
@@ -66,7 +66,7 @@ export function SearchPage() {
                                }}/>
                         Movies
                     </label>
-                    <label>
+                    <label className={curCategory === "tv" ? "active":""}>
                         <input type={"radio"} name={"category"}
                                checked={curCategory === "tv"}
                                onChange={() => {
@@ -76,7 +76,7 @@ export function SearchPage() {
                         />
                         Shows
                     </label>
-                    <label>
+                    <label className={curCategory === "person" ? "active":""}>
                         <input type={"radio"} name={"category"}
                                checked={curCategory === "person"}
                                onChange={() => {
@@ -86,7 +86,7 @@ export function SearchPage() {
                         />
                         People
                     </label>
-                    <label>
+                    <label className={curCategory === "users" ? "active":""}>
                         <input type={"radio"} name={"category"}
                                checked={curCategory === "users"}
                                onChange={() => {
