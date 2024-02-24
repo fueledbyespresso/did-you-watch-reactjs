@@ -294,6 +294,8 @@ a {
     .moviesr-details{
         display: flex;
         flex-flow: row nowrap;
+        margin-top:1em;
+
         a{
             font-weight: bold;
         }
@@ -394,6 +396,18 @@ a {
         .headshot {
             margin-top: 1em;
             border-radius: .5em;
+        }
+    }
+
+    .search-page{
+        .moviesr-details {
+            img{
+                max-height: 10em;
+            }
+
+            .text-details{
+                padding: .5em;
+            }
         }
     }
 }

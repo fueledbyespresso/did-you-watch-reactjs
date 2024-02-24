@@ -29,7 +29,6 @@ export function SearchPage() {
             })
             .then(
                 (result) => {
-                    console.log(result.results)
                     setSearchResults(result.results)
                 }, (error) => {
                     console.log(error)
@@ -103,13 +102,13 @@ export function SearchPage() {
                     const media = searchResult.media_type || curCategory
                     switch (media) {
                         case "tv":
-                            return <TVSR show={searchResult}/>
+                            return <TVSR show={searchResult} key={searchResult.id}/>
                         case "movie":
-                            return <MovieSR movie={searchResult}/>
+                            return <MovieSR movie={searchResult} key={searchResult.id}/>
                         case "user":
                             return <User user={searchResult} key={searchResult.key}/>
                         case "person":
-                            return <ActorSR actor={searchResult}/>
+                            return <ActorSR actor={searchResult} key={searchResult.id}/>
                         default:
                             return <div></div>
                     }
