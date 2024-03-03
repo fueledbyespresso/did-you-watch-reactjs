@@ -778,6 +778,13 @@ a {
             }
         }
     }
+
+    .next-episode-to-air{
+        img{
+            width: 100%;
+            max-width: 20em;
+        }
+    }
 }
 
 @media screen and (max-width: 700px) {
